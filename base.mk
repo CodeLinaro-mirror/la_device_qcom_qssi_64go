@@ -903,39 +903,27 @@ PRODUCT_PACKAGES += android.hardware.thermal@2.0
 PRODUCT_PACKAGES += RemoteProvisioner
 
 #soong namespace for qssi vs vendor differentiation
-#SOONG_CONFIG_NAMESPACES += qssi_vs_vendor
-#SOONG_CONFIG_qssi_vs_vendor += qssi_or_vendor
-#SOONG_CONFIG_qssi_vs_vendor_qssi_or_vendor := qssi
+SOONG_CONFIG_NAMESPACES += qssi_vs_vendor
+SOONG_CONFIG_qssi_vs_vendor += qssi_or_vendor
+SOONG_CONFIG_qssi_vs_vendor_qssi_or_vendor := qssi
 
-$(call soong_config_set,qssi_vs_vendor,qssi_or_vendor,qssi)
+SOONG_CONFIG_NAMESPACES += aosp_vs_qva
+SOONG_CONFIG_aosp_vs_qva += aosp_or_qva
+ifeq ($(TARGET_FWK_SUPPORTS_FULL_VALUEADDS),true)
+SOONG_CONFIG_aosp_vs_qva_aosp_or_qva := qva
+else
+SOONG_CONFIG_aosp_vs_qva_aosp_or_qva := aosp
+endif
 
-#SOONG_CONFIG_NAMESPACES += aosp_vs_qva
-#SOONG_CONFIG_aosp_vs_qva += aosp_or_qva
-#ifeq ($(TARGET_FWK_SUPPORTS_FULL_VALUEADDS),true)
-#SOONG_CONFIG_aosp_vs_qva_aosp_or_qva := qva
-#else
-#SOONG_CONFIG_aosp_vs_qva_aosp_or_qva := aosp
-#endif
+SOONG_CONFIG_NAMESPACES += bredr_vs_btadva
+SOONG_CONFIG_bredr_vs_btadva += bredr_or_btadva
 
-$(call soong_config_set,aosp_vs_qva,aosp_or_qva,$(if $(TARGET_FWK_SUPPORTS_FULL_VALUEADDS),qva,aosp))
-
-#SOONG_CONFIG_NAMESPACES += bredr_vs_btadva
-#SOONG_CONFIG_bredr_vs_btadva += bredr_or_btadva
-
-#ifneq "$(wildcard vendor/qcom/proprietary/commonsys/bt/bt_adv_audio)" ""
-#    $(warning bt_adv_audio dir is present)
-#    SOONG_CONFIG_bredr_vs_btadva_bredr_or_btadva := bredr
-#else
-#    $(warning bt_adv_audio dir is not present)
-#    SOONG_CONFIG_bredr_vs_btadva_bredr_or_btadva := bredr
-#endif #ifneq "$(wildcard vendor/qcom/proprietary/commonsys/bt/bt_adv_audio)" ""
-
-ifneq ($(wildcard vendor/qcom/proprietary/commonsys/bt/bt_adv_audio),)
+ifneq "$(wildcard vendor/qcom/proprietary/commonsys/bt/bt_adv_audio)" ""
     $(warning bt_adv_audio dir is present)
-    $(call soong_config_set,bredr_vs_btadva,bredr_or_btadva,bredr)
+    SOONG_CONFIG_bredr_vs_btadva_bredr_or_btadva := bredr
 else
     $(warning bt_adv_audio dir is not present)
-    $(call soong_config_set,bredr_vs_btadva,bredr_or_btadva,bredr)
+    SOONG_CONFIG_bredr_vs_btadva_bredr_or_btadva := bredr
 endif #ifneq "$(wildcard vendor/qcom/proprietary/commonsys/bt/bt_adv_audio)" ""
 
 PRODUCT_PACKAGES_DEBUG += MicrodroidDemoApp
