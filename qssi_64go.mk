@@ -5,6 +5,9 @@ TARGET_BOARD_PLATFORM := qssi
 TARGET_BOARD_SUFFIX := _64go
 TARGET_BOOTLOADER_BOARD_NAME := qssi_64go
 
+#IOT platform
+TARGET_QCOM_IOT := true
+
 #Align all 64-bit userspace ELF binaries to 16 KB
 PRODUCT_MAX_PAGE_SIZE_SUPPORTED := 16384
 
