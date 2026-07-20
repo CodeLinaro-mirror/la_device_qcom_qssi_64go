@@ -337,10 +337,6 @@ PRODUCT_PACKAGES += initial-package-stopped-states-aosp.xml
 # Enable support for APEX updates
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
-#enable virtualization service, please verify if virtualization needs to be updated
-#for low ram targets
-$(call inherit-product, packages/modules/Virtualization/build/apex/product_packages.mk)
-
 ###################################################################################
 # This is the End of target.mk file.
 # Now, Pickup other split product.mk files:
