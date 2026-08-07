@@ -34,9 +34,6 @@ PRODUCT_BUILD_ODM_IMAGE := false
 PRODUCT_BUILD_CACHE_IMAGE := false
 PRODUCT_BUILD_USERDATA_IMAGE := false
 
-PRODUCT_BUILD_PVMFW_IMAGE := true
-BOARD_PVMFWIMAGE_PARTITION_SIZE := 0x100000
-
 # Enable debugfs restrictions
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 
@@ -110,7 +107,7 @@ PRODUCT_BUILD_SYSTEM_EXT_IMAGE := true
 PRODUCT_BUILD_PRODUCT_IMAGE := true
 PRODUCT_BUILD_SUPER_PARTITION := false
 PRODUCT_BUILD_RAMDISK_IMAGE := true
-BOARD_AVB_VBMETA_SYSTEM := system system_ext product pvmfw
+BOARD_AVB_VBMETA_SYSTEM := system system_ext product 
 BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA2048
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
@@ -336,10 +333,6 @@ PRODUCT_PACKAGES += initial-package-stopped-states-aosp.xml
 
 # Enable support for APEX updates
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-
-#enable virtualization service, please verify if virtualization needs to be updated
-#for low ram targets
-$(call inherit-product, packages/modules/Virtualization/build/apex/product_packages.mk)
 
 ###################################################################################
 # This is the End of target.mk file.
